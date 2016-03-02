@@ -3,7 +3,8 @@ logs
 *.log
 npm-debug.log*
 
-semantic/*
+# Directoyr semantic-ui src
+semantic
 
 # Runtime data
 pids
