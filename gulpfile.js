@@ -3,17 +3,15 @@
 var gulp =          require('gulp');
 var gulputil =      require('gulp-util');
 var rename =        require("gulp-rename");
-var del =           require('del');
 var less =          require('gulp-less');
 var cssmin =        require('gulp-minify-css');
-var browserify =    require('browserify');
 var uglify =        require('gulp-uglify');
-var concat =        require('gulp-concat');
 var jshint =        require('gulp-jshint');
+var del =           require('del');
+var browserify =    require('browserify');
 var browserSync =   require('browser-sync');
 var source =        require('vinyl-source-stream');
 var buffer =        require('vinyl-buffer');
-var reactify =      require('reactify');
 var babelify =      require('babelify');
 var del =           require('del');
 var reload =        browserSync.reload;
@@ -29,9 +27,9 @@ var src = {
         "semuicss": "./semantic/dist/*.css",
         "jsextra": "./app/js/extras/",
         "js_app" : "app.js",
-        "jsx": "./app/js/",
+        "jsx_dir": "./app/js/",
         "jsx_app": "app.jsx",
-        "jsx_all_app": "./app/js/**/*.jsx",
+        "jsx_filter": "./app/js/**/*.jsx",
         "index_html": "index.html",
     };
 
@@ -39,9 +37,9 @@ var dest = {
         "style": "styles.css",
         "js": "scripts.js",
         "app": "app.js",
-        "fonts": "fonts",
+        "fonts": "fonts/",
         "styles": "css/",
-        "scripts": "js",
+        "scripts": "js/",
         "dist": "./dist/",
         "base_dir": "./"
     };
@@ -49,8 +47,7 @@ var dest = {
 
 gulp.task('jsx', function() {
   console.log('gulp jsx.')
-  return browserify(src.jsx + src.jsx_app )
-    //.transform(reactify)
+  return browserify(src.jsx_dir + src.jsx_app )
     .transform(babelify, {presets: ['es2015', 'react']}) // Babel transforms
     .bundle()
     .pipe(source(dest.app))
@@ -58,11 +55,6 @@ gulp.task('jsx', function() {
     .pipe(uglify())
     .pipe(gulp.dest(dest.dist + dest.scripts))
 });
-
-// gulp.task('html',function(){
-//   gulp.src(src.base_dir + src.index_html)
-//   .pipe(gulp.dest(dest.dist ));
-// });
 
 /**
  * keeping semantic css build seperate so this can be
@@ -120,7 +112,7 @@ gulp.task('watch', function() {
   gulp.watch(src.semuijs, ['semantic-copyjs',reload]);
   gulp.watch(src.css, ['css'],reload);
   gulp.watch(src.semuicss, ['semantic-copycss',reload]);
-  gulp.watch(src.jsx_all_app, ['jsx',reload]);
+  gulp.watch(src.jsx_filter, ['jsx',reload]);
 });
 
 gulp.task('browserSync', function() {
