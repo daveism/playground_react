@@ -25,6 +25,8 @@ var src = {
         "semuijs": "./semantic/dist/*.js",
         "jqueryjs": "./node_modules/jquery/dist/*.js",
         "semuicss": "./semantic/dist/*.css",
+        "semuicThemes": "./semantic/dist/themes/**",
+        "semuiComponent": "./semantic/dist/components/**",
         "jsextra": "./app/js/extras/",
         "js_app" : "app.js",
         "jsx_dir": "./app/js/",
@@ -39,6 +41,7 @@ var dest = {
         "app": "app.js",
         "fonts": "fonts/",
         "styles": "css/",
+        "stylesThemes": "css/themes/",
         "scripts": "js/",
         "dist": "./dist/",
         "base_dir": "./"
@@ -94,8 +97,12 @@ gulp.task('js',['semantic-copyjs','jquery-copyjs'], function() {
  * replaced easily with any css library
  */
 gulp.task('semantic-copycss',function(){
-  gulp.src(src.semuicss)
+  gulp.src([src.semuicss])
   .pipe(gulp.dest(dest.dist + dest.styles ));
+
+  gulp.src([src.semuicThemes])
+  .pipe(gulp.dest(dest.dist + dest.stylesThemes ));
+
 });
 
 gulp.task('styles',['semantic-copycss'], function() {

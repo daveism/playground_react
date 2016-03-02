@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDom = require('react-dom');
 
-var CommentBox = require('./components/search.jsx');
+var SearchBasin = require('./components/header.jsx');
 
 ReactDom.render(
-    <CommentBox/>,
+    <SearchBasin/>,
     document.getElementById('content')
 );
