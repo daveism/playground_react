@@ -1,9 +1,8 @@
-var React = require('react');
-var ReactDom = require('react-dom');
+import React from 'react'
+import { render } from 'react-dom'
+import SearchBasin from './components/mapHeader.jsx'
 
-var SearchBasin = require('./components/header.jsx');
-
-ReactDom.render(
+render(
     <SearchBasin/>,
     document.getElementById('content')
 );

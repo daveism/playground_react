@@ -69,6 +69,7 @@
     "run-sequence": "^1.1.5",
     "semantic-ui": "^2.1.8",
     "vinyl-buffer": "^1.0.0",
+    "webpack": "^1.12.14",
     "yamljs": "^0.2.6"
   },
   "author": "",
